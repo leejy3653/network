@@ -14,10 +14,11 @@ public class NSLookup {
 				System.out.print(">");
 				Scanner scanner = new Scanner(System.in);
 				String s = scanner.nextLine();
-				InetAddress[] inetAddresses = InetAddress.getAllByName(s);
 				if ("exit".equals(s)) {
 					break;
 				}
+
+				InetAddress[] inetAddresses = InetAddress.getAllByName(s);
 				for (InetAddress inetAddress : inetAddresses) {
 					System.out.println(s + " : " + inetAddress.getHostAddress());
 
