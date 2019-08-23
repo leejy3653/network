@@ -53,12 +53,13 @@ public class TCPServer {
 						break;
 					}
 					String data = new String(buffer, 0, readByteCount, "UTF-8");// byte를 String으로 바꾼다(encoding).
+
 					System.out.println("[TCPServer] reveived : " + data);// "[TCPServer] reveived : "이 한줄 더 출력되지만 신경쓰지
 																			// 말것 (클라이언트 만들면 사라짐)
-					
+
 					// 6. 데이터 쓰기
-					os.write(data.getBytes("UTF-8"));//UTF-8 굳이 안적어도 됨
-					
+					os.write(data.getBytes("UTF-8"));// UTF-8 굳이 안적어도 됨
+
 				}
 			} catch (SocketException e) {
 				System.out.println("[TCPServer] abnormal closed by client"); // 비정상 종료

@@ -8,7 +8,7 @@ import java.net.Socket;
 
 public class TCPClient {
 	private static String SERVER_IP = "192.168.1.4";// 서버 IP
-	private static int SERVER_PORT = 5000; // 포트
+	private static int SERVER_PORT = 5000; // 포트 num
 
 	public static void main(String[] args) {
 		Socket socket = null;
@@ -39,7 +39,7 @@ public class TCPClient {
 				return;
 			}
 			data = new String(buffer, 0, readByteCount, "UTF-8");
-			System.out.println("[TCPClient] received : "+ data);
+			System.out.println("[TCPClient] received : " + data);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {

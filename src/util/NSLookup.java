@@ -16,9 +16,9 @@ public class NSLookup {
 				String s = scanner.nextLine();
 				if ("exit".equals(s)) {
 					break;
-				}
-
-				InetAddress[] inetAddresses = InetAddress.getAllByName(s);
+					}
+				
+				InetAddress[] inetAddresses = InetAddress.getAllByName(s);				
 				for (InetAddress inetAddress : inetAddresses) {
 					System.out.println(s + " : " + inetAddress.getHostAddress());
 
