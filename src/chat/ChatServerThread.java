@@ -59,7 +59,6 @@ public class ChatServerThread extends Thread {
 					e.printStackTrace();
 				}
 		}
-
 	}
 
 	private void doQuit(PrintWriter writer) {

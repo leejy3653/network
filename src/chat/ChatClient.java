@@ -48,7 +48,7 @@ public class ChatClient {
 					break;
 				} else {
 					pw.println("message:" + input);
-					
+
 					continue;
 				}
 			}

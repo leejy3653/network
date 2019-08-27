@@ -7,17 +7,19 @@ import java.net.Socket;
 public class ChatClientThread extends Thread {
 	Socket socket = null;
 	BufferedReader br;
-	public ChatClientThread(Socket socket,BufferedReader br) {
-		this.socket= socket;
-		this.br= br;
+
+	public ChatClientThread(Socket socket, BufferedReader br) {
+		this.socket = socket;
+		this.br = br;
 	}
-	@Override 
+
+	@Override
 	public void run() {
 		String message;
 		try {
-			while(true) {
+			while (true) {
 				message = br.readLine();
-				if(message==null) {
+				if (message == null) {
 					break;
 				}
 				System.out.println(message);
