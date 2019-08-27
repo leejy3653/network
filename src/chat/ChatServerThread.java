@@ -42,6 +42,7 @@ public class ChatServerThread extends Thread {
 					doMessage(tokens[1]);
 				} else if ("quit".equals(tokens[0])) {
 					doQuit(pw);
+					break;
 				} else {
 					ChatServer.log("error : 알수없는 요청(" + tokens[0] + ")");
 				}
