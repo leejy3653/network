@@ -24,7 +24,7 @@ public class ChatServer {
 			// 2. 바인딩
 			String hostAddress = InetAddress.getLocalHost().getHostAddress();
 			serverSocket.bind(new InetSocketAddress(hostAddress, PORT));
-			System.out.println("[ChatServer] binding" + hostAddress + ":" + PORT);
+			log("binding" + hostAddress + ":" + PORT);
 
 			// 3. 요청 대기
 			while (true) {

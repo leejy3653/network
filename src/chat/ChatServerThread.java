@@ -10,9 +10,10 @@ import java.net.SocketException;
 import java.util.List;
 
 public class ChatServerThread extends Thread {
-	private String nickname = null;
-	private Socket socket = null;
-	List<PrintWriter> listWriters = null;
+	private Socket socket;
+	private String nickname;
+	private List<PrintWriter> listWriters;
+	private PrintWriter pw = null;
 
 	public ChatServerThread(Socket socket, List<PrintWriter> listWriters) {
 		this.socket = socket;
@@ -24,33 +25,42 @@ public class ChatServerThread extends Thread {
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
 
-			PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
+			pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
 
 			while (true) {
 				String request = br.readLine();
 
 				if (request == null) {
 					doQuit(pw);
-					log("클라이언트로부터 연결 끊김");
+					ChatServer.log("클라이언트로부터 연결 끊김");
 					break;
 				}
 
 				String[] tokens = request.split(":");
 				if ("join".equals(tokens[0])) {
 					doJoin(tokens[1], pw);
+					ChatServer.log(this.nickname + "님이 접속하였습니다.");
 				} else if ("message".equals(tokens[0])) {
 					doMessage(tokens[1]);
+					ChatServer.log(this.nickname + ":" + tokens[1]);
+				} else if (" ".equals(tokens[0])) {
+					doMessage(tokens[1]);
+					ChatServer.log(this.nickname + ":" + tokens[1]);
 				} else if ("quit".equals(tokens[0])) {
 					doQuit(pw);
+					ChatServer.log(this.nickname + "님의 접속이 종료되었습니다.");
 					break;
 				} else {
 					ChatServer.log("error : 알수없는 요청(" + tokens[0] + ")");
+					// continue;
 				}
 			}
-		} catch (SocketException e) {
-			log("클라이언트로 부터 비정상적인 종료");
-		} catch (IOException e) {
-			e.printStackTrace();
+		} 
+		catch (SocketException e) {
+			ChatServer.log("클라이언트로 부터 비정상적인 종료");
+		} 
+		catch (IOException e) {
+			ChatServer.log(this.nickname + "님이 퇴장하셨습니다.");
 		} finally {
 			if (socket.isClosed() == false && socket != null)
 				try {
@@ -102,8 +112,4 @@ public class ChatServerThread extends Thread {
 		}
 	}
 
-	private static void log(String log) {
-		System.out.println("[ChatServer] : " + log);
-
-	}
 }

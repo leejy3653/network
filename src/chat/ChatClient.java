@@ -10,7 +10,8 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class ChatClient {
-	private static String SERVER_IP = "192.168.1.4";
+//	private static String SERVER_IP = "192.168.1.4";
+	private static String SERVER_IP = "127.0.0.1"; //강사님 IP
 	private static int SERVER_PORT = 9000;
 
 	public static void main(String[] args) {
@@ -34,23 +35,28 @@ public class ChatClient {
 
 			new ChatClientThread(socket, br).start();
 
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				Thread.sleep(1000);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
 			while (true) {
 				System.out.print(">>");
 				String input = scanner.nextLine();
 
 				if ("quit".equals(input)) {
 					pw.println("quit:");
+					log("서버로부터 연결종료");
 					break;
+				}
+				if ("".equals(input)) { //공백이 입력
+					input = " "; //띄어쓰기로  처리
+					pw.println(" :" + input);
 				} else {
 					pw.println("message:" + input);
-
 					continue;
 				}
+
 			}
 		} catch (IOException e) {
 			log("error : " + e);
@@ -58,8 +64,8 @@ public class ChatClient {
 //			try {
 //				if (socket != null && socket.isClosed() == false)
 //					socket.close();
-			if (scanner != null)
-				scanner.close();
+//			if (scanner != null)
+			scanner.close();
 //			} catch (IOException e) {
 
 //				e.printStackTrace();
@@ -68,7 +74,7 @@ public class ChatClient {
 	}
 
 	private static void log(String log) {
-		System.out.println("[Client] : " + log);
+		System.out.println("[Client]" + log);
 	}
 
 }

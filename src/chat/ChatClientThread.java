@@ -3,6 +3,7 @@ package chat;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class ChatClientThread extends Thread {
 	Socket socket = null;
@@ -18,16 +19,23 @@ public class ChatClientThread extends Thread {
 		String message;
 		try {
 			while (true) {
+				System.out.print(">>");
 				message = br.readLine();
 				if (message == null) {
 					break;
 				}
 				System.out.println(message);
 			}
-		} catch (IOException e) {
+		} 
+//		catch(SocketException e) {
+//			System.out.println("어쩌라고");
+//		}
+		catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			if (socket != null && socket.isClosed() == false)
+		}
+
+		finally {
+			if (socket.isClosed() == false && socket != null)
 				try {
 					socket.close();
 				} catch (IOException e) {
