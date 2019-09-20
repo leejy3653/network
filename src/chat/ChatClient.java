@@ -10,8 +10,8 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class ChatClient {
-//	private static String SERVER_IP = "192.168.1.4";
-	private static String SERVER_IP = "127.0.0.1"; //강사님 IP
+	private static String SERVER_IP = "192.168.1.4"; // 내 IP
+	//private static String SERVER_IP = "127.0.0.1"; //강사님 IP
 	private static int SERVER_PORT = 9000;
 
 	public static void main(String[] args) {
